@@ -4,6 +4,10 @@ const cors = require('cors');
 const colors = require('colors');
 const app = express()
 const PORT = process.env.PORT || 5000
+dotenv.config()
+
+// Database Connection
+require("./src/Config/DBConnect")
 
 // Middlewares
 app.use(express.json())
@@ -11,13 +15,8 @@ app.use(cors())
 
 const productRoute = require('./src/Routes/productRoute')
 
-dotenv.config()
-
 // Routes
 app.use("/api/v1/product", productRoute)
-
-// Database Connection
-require("./src/Config/DBConnect")
 
 // Health Check
 app.get("/", (req, res) => {
