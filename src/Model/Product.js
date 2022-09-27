@@ -60,6 +60,25 @@ const productSchema = mongoose.Schema({
     }],
 }, { timestamps: true })
 
+// Pre Middleware
+productSchema.pre("save", function (next) {
+    if (this.quantity === 0) {
+        this.status = "out-of-stock"
+    }
+    next()
+})
+
+// Post Middleware
+productSchema.post("save", function (doc, next) {
+    console.log(`Post Middleware: ${doc}`)
+    next()
+})
+
+// Instance Method
+productSchema.methods.logger = function () {
+    console.log(`Instance Method: ${this.name}`);
+}
+
 const ProductModel = mongoose.model("Product", productSchema)
 
 module.exports = ProductModel

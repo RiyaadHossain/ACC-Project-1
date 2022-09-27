@@ -10,13 +10,14 @@ exports.getProducts = async (req, res) => {
 exports.postProduct = async (req, res) => {
     const newProduct = new Product(req.body)
 
-    // * Do Something based on user's input before saving the data. [save() method is handy here]
-    if (newProduct.quantity === 0) {
+    // * Do Something based on user's input before saving the data. [save() method is handy here] / Also can be achived by 'Pre Middleware' in Model
+    /* if (newProduct.quantity === 0) {
         newProduct.status = "out-of-stock"
-    }
+    } */
 
     try {
         const result = await newProduct.save()
+        result.logger()
         res.status(201).json({ status: "Successful", message: "Product data successfully save to the Database", data: result })
 
     } catch (error) {
