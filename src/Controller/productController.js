@@ -1,10 +1,26 @@
+const Product = require("../Model/Product")
+const services = require("../Service/productService")
 
 /* ------------ Get Products ------------ */
-exports.getProducts = (req, res) => {
-    res.send("hello")
+exports.getProducts = async (req, res) => {
+    const products = await services()
 }
 
 /* ------------ Post Product ------------ */
-exports.postProduct = (req, res) => {
-    res.send("hello")
+exports.postProduct = async (req, res) => {
+    const newProduct = new Product(req.body)
+
+    // * Do Something based on user's input before saving the data. [save() method is handy here]
+    if (newProduct.quantity === 0) {
+        newProduct.status = "out-of-stock"
+    }
+
+    try {
+        const result = await newProduct.save()
+        res.status(201).json({ status: "Successful", message: "Product data successfully save to the Database", data: result })
+
+    } catch (error) {
+        res.status(500).json({ status: "Fail", error: error.message })
+    }
+
 }
