@@ -56,7 +56,7 @@ const productSchema = mongoose.Schema({
             type: String,
             required: [true, "Category is required"]
         },
-        _id: ObjectId
+        _id: ObjectId // ------------------------------------------------------------------ * '_id' type will be ObjectId
     }],
 }, { timestamps: true })
 
