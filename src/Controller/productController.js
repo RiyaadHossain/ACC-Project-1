@@ -54,6 +54,23 @@ exports.updateProduct = async (req, res) => {
 
 }
 
+/* ------------ Bulk Update Products ------------ */
+exports.bulkUpdateProducts = async (req, res) => {
+
+    const { ids, data } = req.body
+
+    try {
+        const product = await services.updateProductsService(ids, data)
+        if (product.modifiedCount) {
+            res.status(201).json({ status: "Successful", message: "Multiple Products data updated successfully"})
+        }
+
+    } catch (error) {
+        res.status(500).json({ status: "Fail", error: error.message })
+    }
+
+}
+
 /* ------------ Delete Product ------------ */
 exports.deleteProduct = async (req, res) => {
 

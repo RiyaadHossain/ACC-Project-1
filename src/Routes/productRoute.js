@@ -6,6 +6,8 @@ router.route("/")
     .get(controller.getProducts)
     .post(controller.postProduct)
 
+router.route("/bulk-update").patch(controller.bulkUpdateProducts)
+
 router.route("/:id")
     .get(controller.getProduct)
     .patch(controller.updateProduct)

@@ -48,6 +48,13 @@ exports.updateProductService = async (id, data) => {
     return product
 }
 
+/* ------------ Bulk Update Products Service ------------ */
+exports.updateProductsService = async (ids, data) => {
+
+    const product = await Product.updateMany({_id: ids}, data, { new: true, runValidators: true }) // * runValidators - active Schema validation
+    return product
+}
+
 /* ------------ Delete Product Service ------------ */
 exports.deleteProductService = async (id) => {
 
