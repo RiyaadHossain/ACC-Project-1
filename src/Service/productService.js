@@ -23,7 +23,7 @@ exports.getProductsService = async () => {
 /* ------------ Get Product Service ------------ */
 exports.getProductService = async (id) => {
 
-    const product = await Product.findByIdAndUpdate(id, {$inc: {viewCount: 1}}, { new: true })
+    const product = await Product.findByIdAndUpdate(id, { $inc: { viewCount: 1 } }, { new: true })
     return product
 }
 
@@ -49,9 +49,29 @@ exports.updateProductService = async (id, data) => {
 }
 
 /* ------------ Bulk Update Products Service ------------ */
-exports.updateProductsService = async (ids, data) => {
+exports.updateProductsService = async (ids, products) => {
 
-    const product = await Product.updateMany({_id: ids}, data, { new: true, runValidators: true }) // * runValidators - active Schema validation
+    /* +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
+    // Update multiple doc with the same data -
+
+    /* {
+    "ids": ["6332782fcafdee3bf8a36399", "633278af7a116e59dee272cc"],
+    "data": { "viewCount": 5 }
+    } */
+
+    // const product = await Product.updateMany({_id: ids}, products, { new: true, runValidators: true }) // * runValidators - active Schema validation
+    /* +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
+    
+
+    // Update multiple doc with multiple data
+    const productsUpdate = []
+
+    products.forEach(product => {
+        productsUpdate.push(Product.findByIdAndUpdate(product.id, product.data, {new: true}))
+    })
+
+    const product = await Promise.all(productsUpdate)
+
     return product
 }
 

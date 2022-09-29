@@ -8,6 +8,7 @@ router.route("/")
 
 router.route("/bulk-update").patch(controller.bulkUpdateProducts)
 
+// * Keep the dynamic route at the ending
 router.route("/:id")
     .get(controller.getProduct)
     .patch(controller.updateProduct)
