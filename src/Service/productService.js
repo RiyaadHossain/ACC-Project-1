@@ -20,6 +20,13 @@ exports.getProductsService = async () => {
     return products
 }
 
+/* ------------ Get Product Service ------------ */
+exports.getProductService = async (id) => {
+
+    const product = await Product.findByIdAndUpdate(id, {$inc: {viewCount: 1}}, { new: true })
+    return product
+}
+
 /* ------------ Post Product Service ------------ */
 exports.postProductService = async (data) => {
     const newProduct = new Product(data)
@@ -31,5 +38,19 @@ exports.postProductService = async (data) => {
 
     const product = await newProduct.save()
     product.logger()
+    return product
+}
+
+/* ------------ Update Product Service ------------ */
+exports.updateProductService = async (id, data) => {
+
+    const product = await Product.findByIdAndUpdate(id, data, { new: true, runValidators: true }) // * runValidators - active Schema validation
+    return product
+}
+
+/* ------------ Delete Product Service ------------ */
+exports.deleteProductService = async (id) => {
+
+    const product = await Product.findByIdAndDelete(id)
     return product
 }

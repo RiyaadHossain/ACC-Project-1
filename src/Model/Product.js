@@ -47,6 +47,10 @@ const productSchema = mongoose.Schema({
         },
 
     },
+    viewCount: {
+        type: Number,
+        default: 0
+    },
     suppiler: {
         type: ObjectId,
         ref: "Supplier"
