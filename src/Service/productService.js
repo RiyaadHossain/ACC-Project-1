@@ -8,7 +8,7 @@ exports.isExist = async(id) => {
 
 
 /* ------------ Get Products Service ------------ */
-exports.getProductsService = async () => {
+exports.getProductsService = async (filter, query) => {
     /* 
         #Query Practice----------------
 
@@ -23,7 +23,7 @@ exports.getProductsService = async () => {
         9. Product.where("name").equals("PC") - Product.where("price").gt(50000).lt(81000)
 
     */
-    const products = await Product.find({})
+    const products = await Product.find(filter).select(query.field).sort(query.sort).limit(query.limit)
     return products
 }
 
