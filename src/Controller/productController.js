@@ -20,7 +20,7 @@ exports.getProducts = async (req, res) => {
     }
 
     if (limit) {
-        query["limit"] = +limit
+        query["limit"] = limit
     }
 
     if (page) {

@@ -25,10 +25,10 @@ exports.getProductsService = async (filter, query) => {
     */
 
     const products = await Product.find(filter)
+        .skip(query.skip)
+        .limit(query.limit)
         .select(query.field)
         .sort(query.sort)
-        .limit(query.limit)
-        .skip(query.skip)
     const total = await Product.countDocuments(filter)
     const page = Math.ceil(total / query.limit)
 
