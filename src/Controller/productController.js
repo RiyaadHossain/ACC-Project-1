@@ -4,27 +4,28 @@ const services = require("../Service/productService")
 /* ------------ Get Products ------------ */
 exports.getProducts = async (req, res) => {
 
-    const {field, sort, limit} = req.query
+    const { field, sort, limit } = req.query
     const filter = { ...req.query }
-    const query = {}
-    
-    const queryOptions = ["sort", "field", "page"]
+    let query = {}
+
+    const queryOptions = ["sort", "field", "page", "limit"]
     queryOptions.forEach(field => delete filter[field])
-    
+
     if (field) {
-        query["field"]= field.split(',').join(" ")
-    }
-    
-    if (sort) {
-        query["sort"]= sort.split(',').join(" ")
+        query["field"] = field.split(',').join(" ")
     }
 
-    if(limit) query["limit"] = limit
-    
-    console.log({ filter, main: req.query, query })
+    if (sort) {
+        query["sort"] = sort.split(',').join(" ")
+    }
+
+    if (limit) query["limit"] = limit
+
+    let queryString = JSON.stringify(filter)
+    queryString = JSON.parse(queryString.replace(/\b(gt|gte|lt|lte|e|ne)\b/g, match => `$${match}`)) // For $gte $gt $lte $lt $e $ne operator
 
     try {
-        const products = await services.getProductsService(filter, query)
+        const products = await services.getProductsService(queryString, query)
         res.status(201).json({ status: "Successful", message: "Product data got successfully", data: products })
     } catch (error) {
         console.log(error)
