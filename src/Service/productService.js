@@ -1,7 +1,7 @@
 const Product = require("../Model/Product")
 
 /*  1. To check the data's existence */
-exports.isExist = async(id) => {
+exports.isExist = async (id) => {
     const result = await Product.findById(id)
     return result
 }
@@ -10,7 +10,7 @@ exports.isExist = async(id) => {
 /* ------------ Get Products Service ------------ */
 exports.getProductsService = async (filter, query) => {
     /* 
-        #Query Practice----------------
+        #Query Practice_____________________
 
         1. Product.find({ name: "PC", price: 80000 })
         2. Product.find({ $or: [{name: "PC"}, {price: 500}] })
@@ -23,8 +23,16 @@ exports.getProductsService = async (filter, query) => {
         9. Product.where("name").equals("PC") - Product.where("price").gt(50000).lt(81000)
 
     */
-    const products = await Product.find(filter).select(query.field).sort(query.sort).limit(query.limit)
-    return products
+
+    const products = await Product.find(filter)
+        .select(query.field)
+        .sort(query.sort)
+        .limit(query.limit)
+        .skip(query.skip)
+    const total = await Product.countDocuments(filter)
+    const page = Math.ceil(total / query.limit)
+
+    return { total, page, products, }
 }
 
 /* ------------ Get Product Service ------------ */

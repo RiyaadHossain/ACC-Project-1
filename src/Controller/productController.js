@@ -4,7 +4,7 @@ const services = require("../Service/productService")
 /* ------------ Get Products ------------ */
 exports.getProducts = async (req, res) => {
 
-    const { field, sort, limit } = req.query
+    const { field, sort, limit = 5, page = 1 } = req.query
     const filter = { ...req.query }
     let query = {}
 
@@ -19,10 +19,16 @@ exports.getProducts = async (req, res) => {
         query["sort"] = sort.split(',').join(" ")
     }
 
-    if (limit) query["limit"] = limit
+    if (limit) {
+        query["limit"] = +limit
+    }
+
+    if (page) {
+        query["skip"] = (page - 1) * Number(limit)
+    }
 
     let queryString = JSON.stringify(filter)
-    queryString = JSON.parse(queryString.replace(/\b(gt|gte|lt|lte|e|ne)\b/g, match => `$${match}`)) // For $gte $gt $lte $lt $e $ne operator
+    queryString = JSON.parse(queryString.replace(/\b(gt|gte|lt|lte|e|ne)\b/g, match => `$${match}`)) // For [$gte, $gt, $lte, $lt, $e, $ne] operators
 
     try {
         const products = await services.getProductsService(queryString, query)
