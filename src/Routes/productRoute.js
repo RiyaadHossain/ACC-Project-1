@@ -6,7 +6,8 @@ router.route("/")
     .get(controller.getProducts)
     .post(controller.postProduct)
 
-router.route("/bulk-update").patch(controller.bulkUpdateProducts)
+router.patch("/bulk-update", controller.bulkUpdateProducts)
+router.delete("/bulk-delete", controller.bulkDeleteProducts)
 
 // * Keep the dynamic route at the ending
 router.route("/:id")

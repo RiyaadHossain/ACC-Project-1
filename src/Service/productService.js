@@ -1,5 +1,12 @@
 const Product = require("../Model/Product")
 
+/*  1. To check the data's existence */
+exports.isExist = async(id) => {
+    const result = await Product.findById(id)
+    return result
+}
+
+
 /* ------------ Get Products Service ------------ */
 exports.getProductsService = async () => {
     /* 
@@ -49,25 +56,13 @@ exports.updateProductService = async (id, data) => {
 }
 
 /* ------------ Bulk Update Products Service ------------ */
-exports.updateProductsService = async (ids, products) => {
+exports.updateProductsService = async (products) => {
 
-    /* +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
-    // Update multiple doc with the same data -
-
-    /* {
-    "ids": ["6332782fcafdee3bf8a36399", "633278af7a116e59dee272cc"],
-    "data": { "viewCount": 5 }
-    } */
-
-    // const product = await Product.updateMany({_id: ids}, products, { new: true, runValidators: true }) // * runValidators - active Schema validation
-    /* +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
-    
-
-    // Update multiple doc with multiple data
+    // Update multiple doc with multiple data -
     const productsUpdate = []
 
     products.forEach(product => {
-        productsUpdate.push(Product.findByIdAndUpdate(product.id, product.data, {new: true}))
+        productsUpdate.push(Product.findByIdAndUpdate(product.id, product.data, { new: true, runValidators: true })) // * runValidators - active Schema validation
     })
 
     const product = await Promise.all(productsUpdate)
@@ -80,4 +75,11 @@ exports.deleteProductService = async (id) => {
 
     const product = await Product.findByIdAndDelete(id)
     return product
+}
+
+/* ------------ Bulk Update Products Service ------------ */
+exports.deleteProductsService = async (ids) => {
+
+    const result = await Product.deleteMany({ _id: ids })
+    return result
 }

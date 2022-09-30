@@ -16,7 +16,12 @@ exports.getProducts = async (req, res) => {
 exports.getProduct = async (req, res) => {
 
     const { id } = req.params
-    
+
+    const existence = services.isExist(id)
+    if (!existence) {
+        return res.status(402).json({ status: "Fail", message: "Product data didn't exist!" })
+    }
+
     try {
         const product = await services.getProductService(id)
         res.status(201).json({ status: "Successful", message: "Product data got successfully", data: product })
@@ -43,10 +48,18 @@ exports.postProduct = async (req, res) => {
 exports.updateProduct = async (req, res) => {
 
     const { id } = req.params
+    const existence = services.isExist(id)
+    if (!existence) {
+        return res.status(402).json({ status: "Fail", message: "Product data didn't exist!" })
+    }
 
     try {
         const product = await services.updateProductService(id, req.body)
-        res.status(201).json({ status: "Successful", message: "Product data updated successfully"})
+        if (!product) {
+            res.status(403).json({ status: "Fail", message: "Product data couldn't update!" })
+        }
+
+        res.status(201).json({ status: "Successful", message: "Product data updated successfully" })
 
     } catch (error) {
         res.status(500).json({ status: "Fail", error: error.message })
@@ -57,11 +70,11 @@ exports.updateProduct = async (req, res) => {
 /* ------------ Bulk Update Products ------------ */
 exports.bulkUpdateProducts = async (req, res) => {
 
-    const { ids, products } = req.body
+    const { products } = req.body
 
     try {
-        const product = await services.updateProductsService(ids, products)
-        res.status(201).json({ status: "Successful", message: "Multiple Products data updated successfully"})
+        const product = await services.updateProductsService(products)
+        res.status(201).json({ status: "Successful", message: "Multiple Products data updated successfully" })
 
     } catch (error) {
         console.log(error)
@@ -74,13 +87,41 @@ exports.bulkUpdateProducts = async (req, res) => {
 exports.deleteProduct = async (req, res) => {
 
     const { id } = req.params
+    const existence = services.isExist(id, Product)
+    if (!existence) {
+        return res.status(402).json({ status: "Fail", message: "Product data didn't exist!" })
+    }
 
     try {
         const product = await services.deleteProductService(id)
-        console.log(product)
-        res.status(201).json({ status: "Successful", message: "Product data deleted successfully"})
+
+        if (!product) {
+            res.status(403).json({ status: "Fail", message: "Product data couldn't delete." })
+        }
+        res.status(201).json({ status: "Successful", message: "Product data deleted successfully" })
 
     } catch (error) {
+        res.status(500).json({ status: "Fail", error: error.message })
+    }
+
+}
+
+/* ------------ Bulk Delete Products ------------ */
+exports.bulkDeleteProducts = async (req, res) => {
+
+    const { ids } = req.body
+
+    try {
+        const result = await services.deleteProductsService(ids)
+
+        if (!result.deletedCount) {
+            return res.status(403).json({ status: "Fail", message: "Products data didn't exist!" })
+        }
+
+        res.status(201).json({ status: "Successful", message: "Multiple Products data deleted successfully" })
+
+    } catch (error) {
+        console.log(error)
         res.status(500).json({ status: "Fail", error: error.message })
     }
 
