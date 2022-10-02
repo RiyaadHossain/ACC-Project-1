@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const { ObjectId } = mongoose.Schema.Types
+const { arrayImageValidate } = require('../Validator/customValidator');
 
 const productSchema = mongoose.Schema({
     name: {
@@ -14,11 +15,6 @@ const productSchema = mongoose.Schema({
         type: String,
         required: true
     },
-    price: {
-        type: Number,
-        required: true,
-        min: [0, "Price can't be negative"]
-    },
     unit: {
         type: String,
         enum: {
@@ -27,7 +23,34 @@ const productSchema = mongoose.Schema({
         },
         required: true
     },
-    quantity: {
+    imageURLs: [{
+        type: String,
+        validate: {
+            validator: arrayImageValidate,
+            message: "Image URL is not correct."
+        }
+    }],
+    viewCount: {
+        type: Number,
+        default: 0
+    },
+    suppiler: {
+        type: ObjectId,
+        ref: "Supplier"
+    },
+    brand: {
+        name: { type: String, required: [true, "Brand is required"] },
+        id: {
+            type: ObjectId,
+            ref: 'Brand',
+            required: true
+        }
+    },
+    category: {
+        type: String,
+        required: [true, "Category is required"],
+    },
+    /* quantity: {
         type: Number,
         required: true,
         min: [0, "Quantity can't be negative"],
@@ -38,30 +61,7 @@ const productSchema = mongoose.Schema({
             },
             message: "Quantity must be a Number"
         }
-    },
-    status: {
-        type: String,
-        enum: {
-            values: ["in-stock", "out-of-stock", "discontinued"],
-            message: "Status can't be ${VALUE}. Only in-stock/out-of-stock/discontinued are acceptable"
-        },
-
-    },
-    viewCount: {
-        type: Number,
-        default: 0
-    },
-    suppiler: {
-        type: ObjectId,
-        ref: "Supplier"
-    },
-    category: [{
-        name: {
-            type: String,
-            required: [true, "Category is required"]
-        },
-        _id: ObjectId // ------------------------------------------------------------------ * '_id' type will be ObjectId
-    }],
+    }, */
 }, { timestamps: true })
 
 // Pre Middleware
