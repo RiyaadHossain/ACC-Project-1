@@ -1,6 +1,6 @@
 const Product = require("../Model/Product")
 
-/*  1. To check the data's existence */
+/*  To check the data's existence */
 exports.isExist = async (id) => {
     const result = await Product.findById(id)
     return result

@@ -34,7 +34,6 @@ exports.getProducts = async (req, res) => {
         const products = await services.getProductsService(queryString, query)
         res.status(201).json({ status: "Successful", message: "Product data got successfully", data: products })
     } catch (error) {
-        console.log(error)
         res.status(500).json({ status: "Fail", error: error.message })
     }
 }

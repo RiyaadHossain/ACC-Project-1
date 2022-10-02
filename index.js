@@ -14,9 +14,11 @@ app.use(express.json())
 app.use(cors())
 
 const productRoute = require('./src/Routes/productRoute')
+const brandRoute = require('./src/Routes/brandRoute')
 
 // Routes
 app.use("/api/v1/product", productRoute)
+app.use("/api/v1/brand", brandRoute)
 
 // Health Check
 app.get("/", (req, res) => {
