@@ -1,11 +1,5 @@
 const Product = require("../Model/Product")
 
-/*  To check the data's existence */
-exports.isExist = async (id) => {
-    const result = await Product.findById(id)
-    return result
-}
-
 
 /* ------------ Get Products Service ------------ */
 exports.getProductsService = async (filter, query) => {

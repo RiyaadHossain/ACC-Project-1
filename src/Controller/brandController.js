@@ -1,4 +1,6 @@
+const Brand = require("../Model/Brand")
 const services = require("../Service/brandService")
+const { isExist } = require("../Service/commonService")
 
 /* ------------ Get Brands ------------ */
 exports.getBrands = async (req, res) => {
@@ -16,6 +18,10 @@ exports.getBrands = async (req, res) => {
 exports.getBrand = async (req, res) => {
 
     const { id } = req.params
+    const existence = isExist(id, Brand)
+    if (!existence) {
+        return res.status(402).json({ status: "Fail", message: "Product data didn't exist!" })
+    }
     try {
         const brand = await services.getBrandService(id)
         res.status(201).json({ status: "Successful", message: "Brands data got successfully", data: brand })
@@ -39,6 +45,10 @@ exports.postBrand = async (req, res) => {
 exports.updateBrand = async (req, res) => {
 
     const { id } = req.params
+    const existence = isExist(id, Brand)
+    if (!existence) {
+        return res.status(402).json({ status: "Fail", message: "Product data didn't exist!" })
+    }
     try {
         const brand = await services.updateBrandService(id, req.body)
         res.status(201).json({ status: "Successful", message: "Brand data updated successfully", data: brand })
@@ -51,6 +61,10 @@ exports.updateBrand = async (req, res) => {
 exports.deleteBrand = async (req, res) => {
 
     const { id } = req.params
+    const existence = isExist(id, Brand)
+    if (!existence) {
+        return res.status(402).json({ status: "Fail", message: "Product data didn't exist!" })
+    }
     try {
         const brand = await services.deleteBrandService(id)
         res.status(201).json({ status: "Successful", message: "Brand data deleted successfully", data: brand })

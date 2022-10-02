@@ -1,5 +1,6 @@
-
 const services = require("../Service/productService")
+const Product = require("../Model/Brand")
+const { isExist } = require("../Service/commonService")
 
 /* ------------ Get Products ------------ */
 exports.getProducts = async (req, res) => {
@@ -43,7 +44,7 @@ exports.getProduct = async (req, res) => {
 
     const { id } = req.params
 
-    const existence = services.isExist(id)
+    const existence = isExist(id, Product)
     if (!existence) {
         return res.status(402).json({ status: "Fail", message: "Product data didn't exist!" })
     }
@@ -74,7 +75,7 @@ exports.postProduct = async (req, res) => {
 exports.updateProduct = async (req, res) => {
 
     const { id } = req.params
-    const existence = services.isExist(id)
+    const existence = isExist(id, Product)
     if (!existence) {
         return res.status(402).json({ status: "Fail", message: "Product data didn't exist!" })
     }
@@ -113,7 +114,7 @@ exports.bulkUpdateProducts = async (req, res) => {
 exports.deleteProduct = async (req, res) => {
 
     const { id } = req.params
-    const existence = services.isExist(id, Product)
+    const existence = isExist(id, Product, Product)
     if (!existence) {
         return res.status(402).json({ status: "Fail", message: "Product data didn't exist!" })
     }
