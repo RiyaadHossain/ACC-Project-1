@@ -15,10 +15,14 @@ app.use(cors())
 
 const productRoute = require('./src/Routes/productRoute')
 const brandRoute = require('./src/Routes/brandRoute')
+const storeRoute = require('./src/Routes/storeRoute')
+const categoryRoute = require('./src/Routes/categoryRoute')
 
 // Routes
 app.use("/api/v1/product", productRoute)
 app.use("/api/v1/brand", brandRoute)
+app.use("/api/v1/store", storeRoute)
+app.use("/api/v1/category", categoryRoute)
 
 // Health Check
 app.get("/", (req, res) => {
