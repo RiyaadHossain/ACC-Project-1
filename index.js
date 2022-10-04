@@ -18,6 +18,7 @@ const brandRoute = require('./src/Routes/brandRoute')
 const storeRoute = require('./src/Routes/storeRoute')
 const categoryRoute = require('./src/Routes/categoryRoute')
 const supplierRoute = require('./src/Routes/supplierRoute')
+const stockRoute = require('./src/Routes/stockRoute')
 
 // Routes
 app.use("/api/v1/product", productRoute)
@@ -25,6 +26,7 @@ app.use("/api/v1/brand", brandRoute)
 app.use("/api/v1/store", storeRoute)
 app.use("/api/v1/category", categoryRoute)
 app.use("/api/v1/supplier", supplierRoute)
+app.use("/api/v1/stock", stockRoute)
 
 // Health Check
 app.get("/", (req, res) => {
