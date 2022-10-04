@@ -24,7 +24,7 @@ const productSchema = mongoose.Schema({
         required: true
     },
     imageURLs: [{
-        type: String,
+        type: [String],
         validate: {
             validator: arrayImageValidate,
             message: "Image URL is not correct."
@@ -50,18 +50,6 @@ const productSchema = mongoose.Schema({
         type: String,
         required: [true, "Category is required"],
     },
-    /* quantity: {
-        type: Number,
-        required: true,
-        min: [0, "Quantity can't be negative"],
-        validate: { // -------------------------------------------------------------- * Custom Validator *
-            validator: (value) => {
-                const isIntegar = Number.isInteger(value)
-                isIntegar ? true : false
-            },
-            message: "Quantity must be a Number"
-        }
-    }, */
 }, { timestamps: true })
 
 // Pre Middleware

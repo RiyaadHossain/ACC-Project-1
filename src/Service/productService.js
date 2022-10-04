@@ -1,4 +1,5 @@
 const Product = require("../Model/Product")
+const Brand = require("../Model/Brand")
 
 
 /* ------------ Get Products Service ------------ */
@@ -44,9 +45,12 @@ exports.postProductService = async (data) => {
     /* if (newProduct.quantity === 0) {
         newProduct.status = "out-of-stock"
     } */
-
     const product = await newProduct.save()
-    product.logger()
+
+    product.logger() // Instance method
+
+    const { _id: productId, brand } = product
+    await Brand.findByIdAndUpdate(brand.id, { $push: { products: productId } })
     return product
 }
 

@@ -66,6 +66,7 @@ exports.postProduct = async (req, res) => {
         res.status(201).json({ status: "Successful", message: "Product data store to DB successfully", data: product })
 
     } catch (error) {
+        console.log(error)
         res.status(500).json({ status: "Fail", error: error.message })
     }
 
@@ -152,4 +153,8 @@ exports.bulkDeleteProducts = async (req, res) => {
         res.status(500).json({ status: "Fail", error: error.message })
     }
 
+}
+
+exports.imageUpload = (req, res) => {
+    res.send(req.file)
 }

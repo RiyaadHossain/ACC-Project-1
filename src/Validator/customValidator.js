@@ -1,7 +1,7 @@
 const validator = require('validator');
 
 exports.arrayImageValidate = value => {
-    if (Array.isArray(value)) {
+    if (!Array.isArray(value)) {
         return false
     }
 
