@@ -10,7 +10,7 @@
     "category": "Rice",
     "brand": {
       "name": "Pran",
-      "id": "..."
+      "id": "633bf0f90131860dead26422"
     }
   },
   {
@@ -24,7 +24,7 @@
     "category": "Rice",
     "brand": {
       "name": "Pran",
-      "id": "..."
+      "id": "633bf0f90131860dead26422"
     }
   },
 
@@ -39,7 +39,7 @@
     "category": "Rice",
     "brand": {
       "name": "Pran",
-      "id": "..."
+      "id": "633bf0f90131860dead26422"
     }
   },
 
@@ -53,21 +53,22 @@
     "category": "Rice",
     "brand": {
       "name": "Fresh",
-      "id": "..."
+      "id": "633bf0f90131860dead26423"
     }
   },
 
   {
-    "name": "ACI Pure Miniket Rice Premium",
-    "description": "ACI Pure Miniket Rice Premium. Fresh and Clean, Vacuum Packed. ACI Pure Miniket Rice Premium can be use in Biriyani, Polau, Firni, Kheer, Khichuri.",
+    "name": "Pran Pure Miniket Rice Premium",
+    "description": "Pran Pure Miniket Rice Premium. Fresh and Clean, Vacuum Packed. Pran Pure Miniket Rice Premium can be use in Biriyani, Polau, Firni, Kheer, Khichuri.",
     "imageURLs": [
-      "https://chaldn.com/_mpimage/aci-pure-miniket-rice-premium-10-kg?src=https%3A%2F%2Feggyolk.chaldal.com%2Fapi%2FPicture%2FRaw%3FpictureId%3D48063&q=best&v=1&m=400&webp=1"
+      "https://chaldn.com/_mpimage/pran-nazirshail-rice-5-kg?src=https%3A%2F%2Feggyolk.chaldal.com%2Fapi%2FPicture%2FRaw%3FpictureId%3D48089&q=low&v=1&m=400&webp=1",
+      "https://chaldn.com/_mpimage/pran-chinigura-aromatic-rice-2-kg?src=https%3A%2F%2Feggyolk.chaldal.com%2Fapi%2FPicture%2FRaw%3FpictureId%3D108114&q=best&v=1&m=400&webp=1"
     ],
     "unit": "kg",
     "category": "Rice",
     "brand": {
-      "name": "ACI",
-      "id": "..."
+      "name": "Pran",
+      "id": "633bf0f90131860dead26422"
     }
   },
 
@@ -81,7 +82,7 @@
     "category": "Oil",
     "brand": {
       "name": "Fresh",
-      "id": "..."
+      "id": "633bf0f90131860dead26423"
     }
   },
   {
@@ -94,7 +95,7 @@
     "category": "Oil",
     "brand": {
       "name": "Rupchanda",
-      "id": "632c8ac387c9e063388535a4"
+      "id": "633bf0f90131860dead26424"
     }
   },
 
@@ -108,7 +109,7 @@
     "category": "Sugar",
     "brand": {
       "name": "Fresh",
-      "id": "633bf0f90131860dead26422"
+      "id": "633bf0f90131860dead26423"
     }
   }
 ]

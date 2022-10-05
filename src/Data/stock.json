@@ -14,15 +14,15 @@
     "category": "Rice",
     "brand": {
       "name": "Pran",
-      "id": "632a8fa5b83371131449ff2d"
+      "id": "633bf0f90131860dead26422"
     },
     "store": {
       "name": "Dhaka",
       "id": "63318b7a1b959b36f4fac434"
     },
     "suppliedBy": {
-      "name": "abdullah al fahim",
-      "id": "632ca2b2b995083a54c0f9fb"
+      "name": "mezbaul abedin",
+      "id": "633c4d99f56b1244b4e982b7"
     }
   },
   {
@@ -48,7 +48,7 @@
     },
     "suppliedBy": {
       "name": "abdullah al fahim",
-      "id": "632ca2b2b995083a54c0f9fb"
+      "id": "633c4d99f56b1244b4e982b7"
     }
   },
 
@@ -75,7 +75,7 @@
     },
     "suppliedBy": {
       "name": "abdullah al fahim",
-      "id": "632ca2b2b995083a54c0f9fb"
+      "id": "633c4d99f56b1244b4e982b7"
     }
   },
 
@@ -101,7 +101,7 @@
     },
     "suppliedBy": {
       "name": "abdullah al fahim",
-      "id": "632ca2b2b995083a54c0f9fb"
+      "id": "633c4d99f56b1244b4e982b7"
     }
   },
 

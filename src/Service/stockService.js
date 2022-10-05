@@ -6,7 +6,7 @@ exports.getProductsFromStocksService = async (filter, query) => {
         .limit(query.limit)
         .select(query.field)
         .sort(query.sort)
-    
+
     return products;
 };
 
@@ -15,12 +15,13 @@ exports.createProductInStockService = async (data) => {
     return product;
 };
 
-// exports.getProductByIdService = async (id) => {
-//     const product = await Product.findById(id);
-//     return product;
-// }
+exports.getStockByIdService = async (id) => {
+    const product = await Product.findById(id).populate("productId")
+        .populate("suppliedBy.id").populate("store.id").populate("brand.id");
+    return product;
+}
 
-// exports.updateProductByIdService = async (id) => {
-//     const product = await Product.findByIdAndUpdate()
-//     return product;
-// }
+exports.updateStockById = async (id) => {
+    const product = await Product.findByIdAndUpdate()
+    return product;
+}

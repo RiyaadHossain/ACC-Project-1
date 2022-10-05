@@ -1,7 +1,7 @@
 
 //Model
 const Brand = require('../Model/Brand');
-const { getProductsFromStocksService, createProductInStockService } = require('../Service/stockService');
+const { getProductsFromStocksService, createProductInStockService, getStockByIdService, updateStockById } = require('../Service/stockService');
 
 
 exports.getProductsFromStock = async (req, res) => {
@@ -68,8 +68,8 @@ exports.createProductInStock = async (req, res) => {
 
 exports.getStockById = async (req, res) => {
     try {
-        const id = req.params.id;
-        const product = await getProductByIdService(id);
+        const { id } = req.params;
+        const product = await getStockByIdService(id);
 
         res.status(200).json({
             status: "success",
@@ -85,8 +85,8 @@ exports.getStockById = async (req, res) => {
 
 exports.updateStockById = async (req, res) => {
     try {
-        const query = req.params.id;
-        const product = await updateProductByIdService(id);
+        const { id } = req.params;
+        const product = await updateStockById(id);
 
         res.status(200).json({
             status: "success",
