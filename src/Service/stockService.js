@@ -16,12 +16,12 @@ exports.createProductInStockService = async (data) => {
 };
 
 exports.getStockByIdService = async (id) => {
-    const product = await Product.findById(id).populate("productId")
+    const product = await Stock.findById(id).populate("productId")
         .populate("suppliedBy.id").populate("store.id").populate("brand.id");
     return product;
 }
 
 exports.updateStockById = async (id) => {
-    const product = await Product.findByIdAndUpdate()
+    const product = await Stock.findByIdAndUpdate()
     return product;
 }
