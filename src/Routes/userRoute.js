@@ -8,6 +8,9 @@ router.route('/')
     .post(userController.createUser)
 // .post(userController.applyAsSupplier)
 
+router.route("/signin")
+    .post(userController.signIn)
+
 
 router.route("/:id")
 // .get(productController.getProductById)

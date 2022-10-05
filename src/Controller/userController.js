@@ -3,8 +3,55 @@ const {
     getUsersService,
     getManagersService,
     makeSotreManagerService,
-    getUserByIdService
+    getUserByIdService,
+    signinUser,
+    findUserByEmail
 } = require("../Service/userService");
+
+const { generateToken } = require("../Utils/generateToken");
+
+exports.signIn = async (req, res) => {
+    const { email, password } = req.body
+
+    if (!email | !password) {
+        return res.status(401).json({
+            status: "fail",
+            error: "Please provide email and password",
+        });
+    }
+
+    try {
+
+        const user = await findUserByEmail(email)
+        if (!user) {
+            return res.status(401).json({
+                status: "fail",
+                error: "User didn't find",
+            });
+        }
+
+        if (!user.status === 'active') {
+            return res.status(401).json({
+                status: "fail",
+                error: "User account isn't active. Please contact support.",
+            });
+        }
+
+        const token = generateToken(user)
+
+        res.status(200).json({
+            status: "success",
+            data: { user, token }
+        });
+    } catch (error) {
+        console.log(error);
+        res.status(400).json({
+            status: "fail",
+            message: "can't get the data",
+            error: error.message,
+        });
+    }
+}
 
 exports.getUsers = async (req, res) => {
     try {
