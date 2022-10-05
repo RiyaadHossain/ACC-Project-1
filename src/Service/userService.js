@@ -2,7 +2,8 @@ const User = require('../Model/User')
 
 exports.findUserByEmail = async (email) => {
     const user = await User.findOne({ email })
-    return user
+    const {password, ...other} = user.toObject()
+    return other
 }
 
 exports.getUsersService = async () => {

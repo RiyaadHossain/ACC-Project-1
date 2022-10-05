@@ -4,11 +4,36 @@ const {
     getManagersService,
     makeSotreManagerService,
     getUserByIdService,
-    signinUser,
     findUserByEmail
 } = require("../Service/userService");
 
-const { generateToken } = require("../Utils/generateToken");
+const { generateToken } = require("../Utils/token");
+
+exports.getme = async (req, res) => {
+    try {
+
+        const user = await findUserByEmail(req.user?.email)
+        if (!user) {
+            res.status(400).json({
+                status: "fail",
+                error: "User data didn't find"
+            });
+        }
+
+        res.status(200).json({
+            status: "success",
+            message: "successfully got the user data",
+            data: user,
+        });
+
+    } catch (error) {
+        res.status(400).json({
+            status: "fail",
+            message: "Couldn't get the data",
+            error: error.message,
+        });
+    }
+}
 
 exports.signIn = async (req, res) => {
     const { email, password } = req.body
@@ -44,7 +69,6 @@ exports.signIn = async (req, res) => {
             data: { user, token }
         });
     } catch (error) {
-        console.log(error);
         res.status(400).json({
             status: "fail",
             message: "can't get the data",
