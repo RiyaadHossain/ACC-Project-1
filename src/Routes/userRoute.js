@@ -8,7 +8,7 @@ router.post('/signup', userController.createUser)
 
 router.post("/signin", userController.signIn)
 
-router.get("/getme", verifyToken, userController.getme)
+router.get("/me", verifyToken, userController.getme)
 
 
 module.exports = router

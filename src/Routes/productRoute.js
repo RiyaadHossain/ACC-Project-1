@@ -1,14 +1,16 @@
 const express = require('express');
 const router = express.Router()
-const controller = require("../Controller/productController")
-const upload = require("../Middleware/upload")
+const controller = require("../Controller/productController");
+const { authorization } = require('../Middleware/authorization');
+const upload = require("../Middleware/uploader");
+const { verifyToken } = require('../Middleware/verifyToken');
 
 router.route("/")
     .get(controller.getProducts)
-    .post(controller.postProduct)
+    .post(verifyToken, authorization("admin", "store-manager"), controller.postProduct)
 
-router.patch("/bulk-update", controller.bulkUpdateProducts)
-router.delete("/bulk-delete", controller.bulkDeleteProducts)
+router.patch("/bulk-update", verifyToken, authorization("admin", "store-manager"), controller.bulkUpdateProducts)
+router.delete("/bulk-delete", verifyToken, authorization("admin", "store-manager"), controller.bulkDeleteProducts)
 
 router.route("/upload-photo").post(upload.single("image"), controller.imageUpload)
 

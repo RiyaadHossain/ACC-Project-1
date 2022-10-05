@@ -7,11 +7,21 @@ exports.verifyToken = async (req, res, next) => {
     if (!token) {
         res.status(400).json({
             status: "fail",
-            error: "Authorization failed",
+            error: "Authentication failed",
         });
     }
-    
-    const decoded = await promisify(jwt.verify)(token, process.env.JWT_SECRET) // Make the jwt.verify function a - promise using promisify method
-    req.user = decoded
-    next()
+
+    try {
+
+        const decoded = await promisify(jwt.verify)(token, process.env.JWT_SECRET) // Make the jwt.verify function a - promise using promisify method
+        req.user = decoded
+        next()
+    } catch (error) {
+        res.status(400).json({
+            status: "fail",
+            message: "Internal server Error",
+            error: error.message,
+        });
+    }
+
 }
